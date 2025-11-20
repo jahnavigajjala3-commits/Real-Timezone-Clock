@@ -1,4 +1,133 @@
-h1{
-    background-color: red;
-    font-size: 90px;
+* Core theme variables (light defaults) */
+:root {
+  --bg: #f8f9fa;
+  --card: #ffffff;
+  --text: #222;
+  --muted: #6c757d;
+  --accent: #0d6efd;
+
+  --nav-bg: #ffffff;
+  --nav-border: rgba(0,0,0,.08);
+  --card-border: rgba(0,0,0,.06);
+  --btn-bg: #ffffff;
+  --btn-text: var(--text);
+
+  --hand-color: #1f2937;    /* hour / minute */
+  --sec-color: #e3342f;     /* second hand */
+  --center-color: #1f2937;
+}
+
+/* Dark theme (class or data-theme attribute) */
+:root.dark,
+:root[data-theme="dark"] {
+  --bg: #0f1720;
+  --card: #0b1220;
+  --text: #e6eef8;
+  --muted: #9aa4b2;
+  --accent: #66a3ff;
+
+  --nav-bg: #0d1320;
+  --nav-border: rgba(255,255,255,.07);
+  --card-border: rgba(255,255,255,.03);
+  --btn-bg: #0b1320;
+  --btn-text: var(--text);
+
+  --hand-color: #e6eef8;
+  --sec-color: #ff7b7b;
+  --center-color: #e6eef8;
+}
+
+/* Basic resets */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  transition: background 300ms ease, color 300ms ease;
+}
+
+/* Navbar overrides */
+.navbar {
+  background: var(--nav-bg) !important;
+  border-bottom: 1px solid var(--nav-border) !important;
+  color: var(--text) !important;
+  transition: background 300ms ease, border-color 300ms ease, color 300ms ease;
+}
+.navbar .navbar-brand { color: var(--text) !important; font-weight:600; }
+.navbar, .navbar * { color: var(--text) !important; }
+
+/* Buttons / selects */
+.btn, .btn:focus, .btn:hover, .form-select {
+  background: var(--btn-bg) !important;
+  color: var(--btn-text) !important;
+  border-color: var(--card-border) !important;
+  transition: background 250ms ease, color 250ms ease, border-color 250ms ease;
+}
+
+/* Clocks grid & cards */
+#clocksGrid .clock-card {
+  background: var(--card) !important;
+  border-radius: 10px;
+  border: 1px solid var(--card-border) !important;
+  padding: 14px;
+  transition: background 300ms ease, color 300ms ease, border-color 300ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+.clock-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+
+.clock-body { padding: 0; background: transparent; }
+
+.clock-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:.6rem;
+}
+.clock-title { font-weight:600; color:var(--text); transition: color 300ms ease; }
+.clock-sub { font-size:.85rem; color:var(--muted); transition: color 300ms ease; }
+
+.digital-time { font-family: "Roboto Mono", monospace; font-size:1.15rem; font-weight:600; color:var(--text); transition: color 300ms ease; }
+
+.controls .btn { padding:.25rem .5rem; }
+
+/* Analog clock */
+.analog {
+  width:120px; height:120px; border-radius:50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border: 6px solid var(--card-border);
+  position:relative;
+  margin:auto;
+  display:flex; align-items:center; justify-content:center;
+  transition: border-color 300ms ease, background 300ms ease;
+}
+.analog .center {
+  width:8px; height:8px; background:var(--center-color); border-radius:50%; z-index:4;
+  transition: background 300ms ease;
+}
+.analog .hand {
+  position:absolute; left:50%; top:50%; transform-origin: bottom center;
+  transition: transform 120ms linear, background 200ms ease;
+}
+.hand.hour { width:6px; height:30px; background:var(--hand-color); border-radius:4px; z-index:2; }
+.hand.min  { width:4px; height:40px; background:var(--hand-color); border-radius:4px; z-index:3; }
+.hand.sec  { width:2px; height:48px; background:var(--sec-color); border-radius:2px; z-index:1; opacity:0.95; }
+
+/* Footer / small */
+.card-footer { font-size:.85rem; color:var(--muted); margin-top:.6rem; display:flex; justify-content:space-between; align-items:center; }
+.small-muted { font-size:.85rem; color:var(--muted); transition: color 300ms ease; }
+
+/* Responsive adjustments */
+@media (max-width:767px){
+  .analog { width:90px; height:90px; }
+  .hand.hour { height:24px; }
+  .hand.min { height:32px; }
+  .hand.sec { height:38px; }
+}
+
+/* Form control styling */
+.form-control, .form-select {
+  background: transparent !important;
+  color: var(--text) !important;
+  border: 1px solid var(--card-border) !important;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
 }
